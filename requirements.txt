@@ -1,4 +1,3 @@
-
 streamlit
 fastapi
 uvicorn
@@ -11,4 +10,3 @@ scikit-learn
 xgboost
 matplotlib
 seaborn
-tan
