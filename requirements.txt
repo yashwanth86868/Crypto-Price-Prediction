@@ -1,5 +1,8 @@
 
 streamlit
+fastapi
+uvicorn
+requests
 yfinance
 pandas
 numpy
@@ -8,3 +11,4 @@ scikit-learn
 xgboost
 matplotlib
 seaborn
+tan
