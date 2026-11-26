@@ -1,48 +1,56 @@
+# Cryptocurrency Price Prediction and Market Analysis
 
-# Cryptocurrency Price Prediction 📈
+A Python-based cryptocurrency market analysis project that combines data science, machine learning experimentation, a Streamlit dashboard, and a FastAPI backend to analyze cryptocurrency prices and estimate the next day's Bitcoin closing price.
 
 ## Project Overview
 
-Cryptocurrency Price Prediction is a Python-based data analytics and machine learning project that analyzes historical cryptocurrency market data and estimates the next day's Bitcoin closing price.
+This project analyzes historical cryptocurrency market data collected using Yahoo Finance (`yfinance`).
 
-The project uses Yahoo Finance data and explores machine learning regression algorithms to evaluate cryptocurrency price prediction performance.
-
-The final Streamlit application provides cryptocurrency market visualization and a baseline Bitcoin price estimation.
-
-## Features
-
-- Cryptocurrency historical data collection.
-- Data cleaning and preprocessing.
-- Exploratory Data Analysis (EDA).
-- Correlation and outlier analysis.
-- Feature engineering using lag features, moving averages, returns and volatility.
-- Machine learning model training and evaluation.
-- Actual vs. predicted price visualization.
-- Interactive Streamlit dashboard.
-- Bitcoin next-day baseline price estimation.
-
-## Technologies Used
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- XGBoost
-- Yahoo Finance API (yfinance)
-- Streamlit
-- Plotly
-- Pickle
-
-## Cryptocurrencies Analyzed
+It focuses on four cryptocurrencies:
 
 - Bitcoin (BTC)
 - Ethereum (ETH)
 - Tether (USDT)
 - Binance Coin (BNB)
 
-## Machine Learning Algorithms
+The project includes data preprocessing, exploratory data analysis, feature engineering, machine learning model comparison, and an interactive dashboard.
+
+An important finding from model evaluation was that the simple Persistence Baseline performed better than the tested machine learning models on the evaluation data.
+
+## Key Features
+
+- Historical cryptocurrency market data collection
+- Data cleaning and preprocessing
+- Exploratory Data Analysis (EDA)
+- Correlation and outlier analysis
+- Feature engineering using lag features and moving averages
+- Machine learning model comparison
+- Model evaluation using regression metrics
+- Interactive Streamlit dashboard
+- FastAPI REST backend
+- Bitcoin next-day baseline price estimation
+- Technical indicators and market visualizations
+
+## Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming |
+| Pandas | Data manipulation |
+| NumPy | Numerical operations |
+| Matplotlib | Data visualization |
+| Seaborn | Statistical visualization |
+| Scikit-learn | Machine learning |
+| XGBoost | Gradient boosting model |
+| Yahoo Finance / yfinance | Cryptocurrency market data |
+| Streamlit | Interactive dashboard |
+| FastAPI | REST API backend |
+| Uvicorn | API server |
+| Plotly | Interactive charts |
+| Requests | Frontend API communication |
+| Pickle | Saving baseline evaluation information |
+
+## Machine Learning Models Evaluated
 
 The following regression algorithms were evaluated:
 
@@ -52,27 +60,50 @@ The following regression algorithms were evaluated:
 4. Gradient Boosting Regressor
 5. XGBoost Regressor
 
-## Model Evaluation
-
-Models were evaluated using:
+### Evaluation Metrics
 
 - Mean Absolute Error (MAE)
 - Root Mean Squared Error (RMSE)
 - R² Score
 - Mean Absolute Percentage Error (MAPE)
 
-The tested machine learning models did not outperform the persistence baseline.
+### Important Model Evaluation Finding
 
-The baseline predicts the next day's Bitcoin closing price using the latest available closing price.
+The Persistence Baseline was used as a benchmark:
 
-This result highlights the importance of comparing machine learning models against simple benchmarks.
+**Tomorrow's estimated Bitcoin price = Today's closing price**
 
-## Application Pages
+The tested machine learning models did not outperform this baseline on the evaluated test data.
 
-1. Home – Project introduction and features.
-2. Live Market – Cryptocurrency market data and price charts.
-3. Bitcoin Prediction – Next-day baseline price estimation.
-4. About – Prediction strategy and evaluation metrics.
+This demonstrates why machine learning models should always be compared against simple baseline approaches.
+
+The baseline is used by the current application for its Bitcoin price estimate.
+
+## System Architecture
+
+The application has two main components:
+
+**1. Streamlit Frontend**
+
+Provides the interactive user interface, market visualizations, prediction display, and technical analysis.
+
+**2. FastAPI Backend**
+
+Provides REST API endpoints to retrieve cryptocurrency market data, generate the baseline Bitcoin estimate, and return evaluation metrics.
+
+### API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/` | API welcome message |
+| GET | `/health` | API health check |
+| GET | `/market/{ticker}` | Cryptocurrency market data |
+| GET | `/predict/btc` | Bitcoin baseline estimate |
+| GET | `/model/metrics` | Model evaluation metrics |
+
+Interactive API documentation is available at:
+
+`http://127.0.0.1:8000/docs`
 
 ## Project Structure
 
@@ -80,59 +111,113 @@ This result highlights the importance of comparing machine learning models again
 Crypto-Price-Prediction/
 │
 ├── app.py
+├── app1.py
+├── main.py
+│
 ├── crypto_price_prediction.ipynb
+│
 ├── best_crypto_model.pkl
+├── random_forest_model.pkl
+├── scaler.pkl
+│
 ├── requirements.txt
 ├── README.md
-├── .gitignore
-│
-└── images/
-    └── dashboard.png
+└── .gitignore
 ```
 
-## Installation and Setup
+## Installation and Local Setup
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Crypto-Price-Prediction.git
+git clone https://github.com/yashwanth86868/Crypto-Price-Prediction.git
 ```
 
-### 2. Navigate to the project folder
+### 2. Navigate to the project directory
 
 ```bash
 cd Crypto-Price-Prediction
 ```
 
-### 3. Install dependencies
+### 3. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+Activate it on Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+### 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Streamlit application
+### 5. Start the FastAPI backend
+
+Open the first terminal:
 
 ```bash
-streamlit run app.py
+python -m uvicorn main:app --reload
 ```
+
+Backend address:
+
+`http://127.0.0.1:8000`
+
+API documentation:
+
+`http://127.0.0.1:8000/docs`
+
+### 6. Start the Streamlit frontend
+
+Open a second terminal in the same project directory:
+
+```bash
+python -m streamlit run app.py
+```
+
+The dashboard will open in your browser.
+
+Keep the FastAPI backend running while using the Streamlit application.
+
+## Project Learning Outcomes
+
+Through this project, I practiced:
+
+- Working with real-world financial datasets
+- Data preprocessing and exploratory analysis
+- Feature engineering for time-series data
+- Training and comparing regression models
+- Evaluating models using appropriate metrics
+- Building REST APIs using FastAPI
+- Connecting a frontend application to a backend API
+- Creating interactive dashboards using Streamlit
+- Organizing and maintaining a GitHub project
 
 ## Future Improvements
 
-- Improve predictive performance through additional feature engineering.
-- Evaluate additional time-series forecasting algorithms.
-- Perform hyperparameter optimization.
-- Add more cryptocurrency forecasting options.
-- Implement automated model monitoring.
-- Deploy the application publicly.
+- Experiment with additional time-series forecasting techniques
+- Improve feature engineering
+- Add automated testing
+- Improve API error handling
+- Add more cryptocurrency analysis features
+- Compare forecasting models across different time periods
 
 ## Disclaimer
 
-This project is developed for educational and portfolio purposes.
+This project is developed for educational and portfolio purposes only.
 
-Cryptocurrency markets are volatile. The baseline estimate is not a guaranteed prediction or financial advice.
+Cryptocurrency markets are highly volatile. The baseline estimate is not a guaranteed forecast and should not be considered financial advice.
 
 ## Author
 
 **Yashwanth**
 
 Aspiring AI/ML Engineer
+
+GitHub: https://github.com/yashwanth86868
